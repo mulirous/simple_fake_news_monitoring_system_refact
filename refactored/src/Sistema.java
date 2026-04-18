@@ -1,56 +1,56 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class D {
-    String t;
-    String c;
+class News {
+    String text;
+    String classification;
 }
 
 public class Sistema {
 
-    static ArrayList<D> data = new ArrayList<>();
+    static ArrayList<News> newsList = new ArrayList<>();
 
     // função que faz tudo
-    public static void f(String a, String b) {
+    public static void addNews(String newsText, String newsClassification) {
         // adiciona coisa
-        if (a != null && !a.equals("")) {
-            D d = new D();
-            d.t = a;
+        if (newsText != null && !newsText.equals("")) {
+            News noticia = new News();
+            noticia.text = newsText;
 
-            if (b == null || b.equals("")) {
-                d.c = "duvidosa";
+            if (newsClassification == null || newsClassification.equals("")) {
+                noticia.classification = "duvidosa";
             } else {
-                d.c = b;
+                noticia.classification = newsClassification;
             }
 
-            data.add(d);
+            newsList.add(noticia);
         } else {
             System.out.println("erro");
         }
     }
 
-    public static void func2() {
+    public static void listNews() {
         // lista tudo
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println("Texto: " + data.get(i).t);
-            System.out.println("Classificacao: " + data.get(i).c);
+        for (int i = 0; i < newsList.size(); i++) {
+            System.out.println("Texto: " + newsList.get(i).text);
+            System.out.println("Classificacao: " + newsList.get(i).classification);
             System.out.println("-------------------");
         }
     }
 
-    public static String analisar(String txt) {
+    public static String analisar(String text) {
         int score = 0;
 
-        if (!txt.contains("FONTE")) {
+        if (!text.contains("FONTE")) {
             score = score + 1;
         }
-        if (txt.contains("!!!")) {
+        if (text.contains("!!!")) {
             score = score + 1;
         }
-        if (txt.contains("URGENTE")) {
+        if (text.contains("URGENTE")) {
             score = score + 1;
         }
-        if (txt.length() < 10) {
+        if (text.length() < 10) {
             score = score + 1;
         }
 
@@ -64,25 +64,25 @@ public class Sistema {
     }
 
     public static void addManual(Scanner sc) {
-        System.out.print("Digite o texto: ");
-        String t = sc.nextLine();
+        System.out.print("Digite o text: ");
+        String text = sc.nextLine();
 
-        System.out.print("Digite classificacao: ");
-        String c = sc.nextLine();
+        System.out.print("Digite classification: ");
+        String classification = sc.nextLine();
 
-        if (c.equals("")) {
-            f(t, null);
+        if (classification.equals("")) {
+            addNews(text, null);
         } else {
-            f(t, c);
+            addNews(text, classification);
         }
     }
 
     public static void addAuto(Scanner sc) {
-        System.out.print("Digite o texto: ");
-        String t = sc.nextLine();
+        System.out.print("Digite o text: ");
+        String text = sc.nextLine();
 
-        String c = analisar(t);
-        f(t, c);
+        String classification = analisar(text);
+        addNews(text, classification);
     }
 
     public static void menu() {
@@ -101,7 +101,7 @@ public class Sistema {
             } else if (op.equals("2")) {
                 addAuto(sc);
             } else if (op.equals("3")) {
-                func2();
+                listNews();
             } else if (op.equals("4")) {
                 break;
             } else {
