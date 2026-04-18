@@ -2,8 +2,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class News {
-    String text;
-    String classification;
+    private String text;
+    private String classification;
+
+
+    public News(String text, String classification) {
+        this.text = text;
+        this.classification = classification;
+    }
+
+    public News() { }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
 }
 
 public class Sistema {
@@ -15,12 +40,12 @@ public class Sistema {
         // adiciona coisa
         if (newsText != null && !newsText.equals("")) {
             News noticia = new News();
-            noticia.text = newsText;
+            noticia.setText(newsText);
 
             if (newsClassification == null || newsClassification.equals("")) {
-                noticia.classification = "duvidosa";
+                noticia.setClassification("duvidosa");
             } else {
-                noticia.classification = newsClassification;
+                noticia.setClassification(newsClassification);
             }
 
             newsList.add(noticia);
@@ -32,8 +57,8 @@ public class Sistema {
     public static void listNews() {
         // lista tudo
         for (int i = 0; i < newsList.size(); i++) {
-            System.out.println("Texto: " + newsList.get(i).text);
-            System.out.println("Classificacao: " + newsList.get(i).classification);
+            System.out.println("Texto: " + newsList.get(i).getText());
+            System.out.println("Classificacao: " + newsList.get(i).getClassification());
             System.out.println("-------------------");
         }
     }
