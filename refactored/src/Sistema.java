@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Sistema {
 
     static ArrayList<News> newsList = new ArrayList<>();
-    private NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
+    private static NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
     // função que faz tudo
     public static void addNews(String newsText, String newsClassification) {
@@ -29,7 +29,7 @@ public class Sistema {
         // lista tudo
         for (int i = 0; i < newsList.size(); i++) {
             System.out.println("Texto: " + newsList.get(i).getText());
-            System.out.println("Classificacao: " + newsList.get(i).getClassification());
+            System.out.println("Classificacao: " + newsList.get(i).getClassificationLabel());
             System.out.println("-------------------");
         }
     }

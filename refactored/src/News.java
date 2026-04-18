@@ -1,9 +1,9 @@
 class News {
     private String text;
-    private String classification;
+    private NewsClassification classification;
 
 
-    public News(String text, String classification) {
+    public News(String text, NewsClassification classification) {
         this.text = text;
         this.classification = classification;
     }
@@ -14,8 +14,12 @@ class News {
         return text;
     }
 
-    public String getClassification() {
+    public NewsClassification getClassification() {
         return classification;
+    }
+
+    public String getClassificationLabel() {
+        return classification.getLabel();
     }
 
     public void setText(String text) {
@@ -23,6 +27,10 @@ class News {
     }
 
     public void setClassification(String classification) {
+        this.classification = NewsClassification.fromLabel(classification);
+    }
+
+    public void setClassification(NewsClassification classification) {
         this.classification = classification;
     }
 
