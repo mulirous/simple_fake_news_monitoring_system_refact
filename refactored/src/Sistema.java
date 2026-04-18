@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Sistema {
 
-    static ArrayList<News> newsList = new ArrayList<>();
+    private static NewsCatalog newsCatalog = new NewsCatalog();
     private static NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
     // função que faz tudo
@@ -19,7 +19,7 @@ public class Sistema {
                 noticia.setClassification(newsClassification);
             }
 
-            newsList.add(noticia);
+            newsCatalog.add(noticia);
         } else {
             System.out.println("erro");
         }
@@ -27,9 +27,9 @@ public class Sistema {
 
     public static void listNews() {
         // lista tudo
-        for (int i = 0; i < newsList.size(); i++) {
-            System.out.println("Texto: " + newsList.get(i).getText());
-            System.out.println("Classificacao: " + newsList.get(i).getClassificationLabel());
+        for (News news : newsCatalog.list()) {
+            System.out.println("Texto: " + news.getText());
+            System.out.println("Classificacao: " + news.getClassificationLabel());
             System.out.println("-------------------");
         }
     }
