@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Sistema {
 
     static ArrayList<News> newsList = new ArrayList<>();
+    private NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
     // função que faz tudo
     public static void addNews(String newsText, String newsClassification) {
@@ -33,31 +34,6 @@ public class Sistema {
         }
     }
 
-    public static String analisar(String text) {
-        int score = 0;
-
-        if (!text.contains("FONTE")) {
-            score = score + 1;
-        }
-        if (text.contains("!!!")) {
-            score = score + 1;
-        }
-        if (text.contains("URGENTE")) {
-            score = score + 1;
-        }
-        if (text.length() < 10) {
-            score = score + 1;
-        }
-
-        if (score == 0) {
-            return "confiavel";
-        } else if (score == 1) {
-            return "duvidosa";
-        } else {
-            return "falsa";
-        }
-    }
-
     public static void addManual(Scanner sc) {
         System.out.print("Digite o text: ");
         String text = sc.nextLine();
@@ -76,7 +52,7 @@ public class Sistema {
         System.out.print("Digite o text: ");
         String text = sc.nextLine();
 
-        String classification = analisar(text);
+        String classification = newsAnalyzer.analyze(text);
         addNews(text, classification);
     }
 
