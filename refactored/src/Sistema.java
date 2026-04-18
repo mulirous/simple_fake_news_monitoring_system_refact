@@ -106,9 +106,4 @@ public class Sistema {
 
         sc.close();
     }
-
-    // inicia programa
-    public static void main(String[] args) {
-        menu();
-    }
 }
