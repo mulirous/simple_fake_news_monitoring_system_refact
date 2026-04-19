@@ -1,7 +1,7 @@
 public class NewsAnalyzer {
     public NewsAnalyzer() { }
 
-    public String analyze(String text) {
+    public NewsClassification analyze(String text) {
         int score = 0;
 
         if (!text.contains("FONTE")) {
@@ -21,13 +21,13 @@ public class NewsAnalyzer {
         }
 
         if (score == 0) {
-            return "confiavel";
+            return NewsClassification.CONFIAVEL;
         }
 
         if (score == 1) {
-            return "duvidosa";
+            return NewsClassification.DUVIDOSA;
         }
 
-        return "falsa";
+        return NewsClassification.FALSA;
     }
 }

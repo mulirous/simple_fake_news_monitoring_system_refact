@@ -7,13 +7,13 @@ public class Sistema {
     private static final NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
     // função que faz tudo
-    public static void addNews(String newsText, String newsClassification) {
+    public static void addNews(String newsText, NewsClassification newsClassification) {
         // adiciona coisa
         if (newsText != null && !newsText.equals("")) {
             News noticia = new News();
             noticia.setText(newsText);
 
-            if (newsClassification == null || newsClassification.equals("")) {
+            if (newsClassification == null || newsClassification.getLabel().equals("")) {
                 noticia.setClassification("duvidosa");
             } else {
                 noticia.setClassification(newsClassification);
@@ -39,9 +39,9 @@ public class Sistema {
         String text = sc.nextLine();
 
         System.out.print("Digite classification: ");
-        String classification = sc.nextLine();
+        NewsClassification classification = NewsClassification.fromLabel(sc.nextLine());
 
-        if (classification.equals("")) {
+        if (classification.getLabel().equals("")) {
             addNews(text, null);
         } else {
             addNews(text, classification);
@@ -52,7 +52,7 @@ public class Sistema {
         System.out.print("Digite o text: ");
         String text = sc.nextLine();
 
-        String classification = newsAnalyzer.analyze(text);
+        NewsClassification classification = newsAnalyzer.analyze(text);
         addNews(text, classification);
     }
 
