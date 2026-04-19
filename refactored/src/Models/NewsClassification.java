@@ -16,8 +16,14 @@ public enum NewsClassification {
     }
 
     public static NewsClassification fromLabel(String label) {
+        if (label == null || label.isBlank()) {
+            return DUVIDOSA; // padrão para classificação duvidosa
+        }
+
+        String normalizedLabel = label.trim();
+
         for (NewsClassification nc : values()) {
-            if (nc.label.equalsIgnoreCase(label)) {
+            if (nc.label.equalsIgnoreCase(normalizedLabel)) {
                 return nc;
             }
         }
