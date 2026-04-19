@@ -6,7 +6,15 @@ public class News {
 
 
     public News(String text, NewsClassification classification) {
-        this.text = text;
+        if (text == null || text.isBlank()) {
+            throw new IllegalArgumentException("Texto da noticia nao pode ser vazio.");
+        }
+
+        if (classification == null) {
+            throw new IllegalArgumentException("Classificacao da noticia nao pode ser nula.");
+        }
+
+        this.text = text.trim();
         this.classification = classification;
     }
 
