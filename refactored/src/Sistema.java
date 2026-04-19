@@ -10,27 +10,27 @@ public class Sistema {
     private static final NewsCatalog newsCatalog = new NewsCatalog();
     private static final NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
-    // função que faz tudo
     public static void addNews(String newsText, NewsClassification newsClassification) {
-        // adiciona coisa
-        if (newsText != null && !newsText.equals("")) {
-            News noticia = new News();
-            noticia.setText(newsText);
-
-            if (newsClassification == null || newsClassification.getLabel().equals("")) {
-                noticia.setClassification("duvidosa");
-            } else {
-                noticia.setClassification(newsClassification);
-            }
-
-            newsCatalog.add(noticia);
-        } else {
-            System.out.println("erro");
+        if (newsText == null || newsText.isBlank()) {
+            System.out.println("Texto invalido.");
+            return;
         }
+
+        NewsClassification classification = newsClassification == null
+                ? NewsClassification.DUVIDOSA
+                : newsClassification;
+
+        News news = new News(newsText, classification);
+        newsCatalog.add(news);
     }
 
+
     public static void listNews() {
-        // lista tudo
+        if (newsCatalog.isEmpty()) {
+            System.out.println("Nenhuma noticia cadastrada.");
+            return;
+        }
+
         for (News news : newsCatalog.list()) {
             System.out.println("Texto: " + news.getText());
             System.out.println("Classificacao: " + news.getClassificationLabel());
@@ -39,27 +39,38 @@ public class Sistema {
     }
 
     public static void addManual(Scanner sc) {
-        System.out.print("Digite o text: ");
+        System.out.print("Digite o texto: ");
         String text = sc.nextLine();
 
-        System.out.print("Digite classification: ");
-        NewsClassification classification = NewsClassification.fromLabel(sc.nextLine());
+        System.out.print("Digite classificacao: ");
+        String classificationInput = sc.nextLine();
 
-        if (classification.getLabel().equals("")) {
-            addNews(text, null);
-        } else {
+        if (classificationInput.isBlank()) {
+            addNews(text, NewsClassification.DUVIDOSA);
+            return;
+        }
+
+        try {
+            NewsClassification classification = NewsClassification.fromLabel(classificationInput);
             addNews(text, classification);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 
     public static void addAuto(Scanner sc) {
-        System.out.print("Digite o text: ");
+        System.out.print("Digite o texto: ");
         String text = sc.nextLine();
+
+        if (text == null || text.isBlank()) {
+            System.out.println("Texto invalido.");
+            return;
+        }
 
         NewsClassification classification = newsAnalyzer.analyze(text);
         addNews(text, classification);
     }
-
+    
     public static void menu() {
         Scanner sc = new Scanner(System.in);
 
