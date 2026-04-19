@@ -10,6 +10,10 @@ public class NewsCatalog {
     private List<News> newsList = new ArrayList<>();
 
     public void add(News news) {
+        if (news == null) {
+            throw new IllegalArgumentException("Noticia nao pode ser nula.");
+        }
+
         newsList.add(news);
     }
 
@@ -17,4 +21,7 @@ public class NewsCatalog {
         return Collections.unmodifiableList(newsList);
     }
 
+    public boolean isEmpty() {
+        return newsList.isEmpty();
+    }
 }
