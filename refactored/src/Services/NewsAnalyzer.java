@@ -2,12 +2,24 @@ package Services;
 
 import Models.NewsClassification;
 
+/**
+ * Responsible for applying the criteria for automatic news analysis.
+ *
+ * The classification is calculated by a score based on the absence of a source,
+ * sensationalist language and reduced text size.
+ */
+
 public class NewsAnalyzer {
     private static final int MINIMUM_RELIABLE_TEXT_LENGTH = 10;
 
     public NewsAnalyzer() { }
 
-
+    /**
+     * It analyzes the provided text and returns an automatic classification.
+     *
+     * @param text text of the news to be analyzed
+     * @return calculated classification for the news
+     */
     public NewsClassification analyze(String text) {
         if (text == null || text.isBlank()) {
             return NewsClassification.DUVIDOSA;

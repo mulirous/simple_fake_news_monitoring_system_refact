@@ -1,5 +1,11 @@
 package Models;
 
+/**
+ * Defines the valid classifications for a news item.
+ *
+ * The enum avoids the use of loose strings in the code and restricts the possible values
+ * to classifications known to the system.
+ */
 public enum NewsClassification {
     CONFIAVEL("confiavel"),
     DUVIDOSA("duvidosa"),
@@ -15,6 +21,12 @@ public enum NewsClassification {
         return label;
     }
 
+    /**
+     * Converts user-entered text into a valid classification.
+     *
+     * @param label classification text
+     * @return corresponding classification
+     */
     public static NewsClassification fromLabel(String label) {
         if (label == null || label.isBlank()) {
             return DUVIDOSA; // padrão para classificação duvidosa

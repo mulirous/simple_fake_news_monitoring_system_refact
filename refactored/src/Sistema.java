@@ -5,11 +5,24 @@ import Services.NewsCatalog;
 
 import java.util.Scanner;
 
+/**
+ * Main orchestration class of the system.
+ *
+ * Maintains the flow of interaction with the user via the console and delegates the
+ * responsresponsibilities of analysis and storage to specialized classes.
+ */
 public class Sistema {
 
     private static final NewsCatalog newsCatalog = new NewsCatalog();
     private static final NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
+    /**
+     * Register a news on catalog. If the classification is not provided,
+     * the system uses DUVIDOSA as the default classification, preserving the behavior of the original code.
+     *
+     * @param newsText news text
+     * @param newsClassification news classification
+     */
     public static void addNews(String newsText, NewsClassification newsClassification) {
         if (newsText == null || newsText.isBlank()) {
             System.out.println("Texto invalido.");
@@ -24,7 +37,9 @@ public class Sistema {
         newsCatalog.add(news);
     }
 
-
+    /**
+     * List the news registered in the system.
+     */
     public static void listNews() {
         if (newsCatalog.isEmpty()) {
             System.out.println("Nenhuma noticia cadastrada.");
@@ -38,6 +53,12 @@ public class Sistema {
         }
     }
 
+    /**
+     * Read the news data manually entered by the user. If the classification is not provided,
+     * the system uses DUVIDOSA as the default classification, preserving the behavior of the original code.
+     *
+     * @param sc scanner used for reading user input when necessary
+     */
     public static void addManual(Scanner sc) {
         System.out.print("Digite o texto: ");
         String text = sc.nextLine();
@@ -58,6 +79,11 @@ public class Sistema {
         }
     }
 
+    /**
+     * Read the user text and applies the automatic classification
+     *
+     * @param sc scanner used for reading user input when necessary
+     */
     public static void addAuto(Scanner sc) {
         System.out.print("Digite o texto: ");
         String text = sc.nextLine();
@@ -70,7 +96,11 @@ public class Sistema {
         NewsClassification classification = newsAnalyzer.analyze(text);
         addNews(text, classification);
     }
-    
+
+    /**
+     * Start the menu console system
+     */
+
     public static void menu() {
         Scanner sc = new Scanner(System.in);
 
@@ -87,6 +117,9 @@ public class Sistema {
         sc.close();
     }
 
+    /**
+     * Display the menu options on console.
+     */
     private static void showMenuOptions() {
         System.out.println("1 - adicionar manual");
         System.out.println("2 - adicionar automatico");
@@ -94,6 +127,12 @@ public class Sistema {
         System.out.println("4 - sair");
     }
 
+    /**
+     *
+     * @param option user-selected menu option
+     * @param sc scanner used for reading user input when necessary
+     * @return true if the menu should continue, false if it should exit
+     */
     private static boolean handleMenuOption(String option, Scanner sc) {
         if (option.equals("1")) {
             addManual(sc);

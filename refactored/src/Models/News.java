@@ -1,10 +1,20 @@
 package Models;
 
+/**
+ * Represents a news item registered in the system. *
+ * Each news item has a text and a classification. The class validates the data
+ * at the time of creation to avoid incomplete or inconsistent objects.
+ */
 public class News {
     private String text;
     private NewsClassification classification;
 
-
+    /**
+     * Create a news story with valid text and classification.
+     *
+     * @param text news text
+     * @param classification classification given to the news
+     */
     public News(String text, NewsClassification classification) {
         if (text == null || text.isBlank()) {
             throw new IllegalArgumentException("Texto da noticia nao pode ser vazio.");
