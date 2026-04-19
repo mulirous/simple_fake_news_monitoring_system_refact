@@ -1,3 +1,7 @@
+package Services;
+
+import Models.NewsClassification;
+
 public class NewsAnalyzer {
     public NewsAnalyzer() { }
 

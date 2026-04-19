@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+import Models.News;
+import Models.NewsClassification;
+import Services.NewsAnalyzer;
+import Services.NewsCatalog;
+
 import java.util.Scanner;
 
 public class Sistema {

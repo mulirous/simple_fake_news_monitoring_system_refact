@@ -1,3 +1,5 @@
+package Models;
+
 public enum NewsClassification {
     CONFIAVEL("confiavel"),
     DUVIDOSA("duvidosa"),

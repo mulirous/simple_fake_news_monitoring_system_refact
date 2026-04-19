@@ -1,4 +1,6 @@
-class News {
+package Models;
+
+public class News {
     private String text;
     private NewsClassification classification;
 
