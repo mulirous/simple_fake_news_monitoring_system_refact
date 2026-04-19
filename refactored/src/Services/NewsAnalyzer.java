@@ -3,24 +3,27 @@ package Services;
 import Models.NewsClassification;
 
 public class NewsAnalyzer {
+    private static final int MINIMUM_RELIABLE_TEXT_LENGTH = 10;
+
     public NewsAnalyzer() { }
 
+
     public NewsClassification analyze(String text) {
+        if (text == null || text.isBlank()) {
+            return NewsClassification.DUVIDOSA;
+        }
+
         int score = 0;
 
-        if (!text.contains("FONTE")) {
+        if (hasNoSource(text)) {
             score++;
         }
 
-        if (text.contains("!!!")) {
+        if (hasSensationalistLanguage(text)) {
             score++;
         }
 
-        if (text.contains("URGENTE")) {
-            score++;
-        }
-
-        if (text.length() < 10) {
+        if (isTooShort(text)) {
             score++;
         }
 
@@ -34,4 +37,17 @@ public class NewsAnalyzer {
 
         return NewsClassification.FALSA;
     }
-}
+
+    private boolean hasNoSource(String text) {
+        return !text.contains("FONTE");
+    }
+
+    private boolean hasSensationalistLanguage(String text) {
+        return text.contains("!!!") || text.contains("URGENTE");
+    }
+
+    private boolean isTooShort(String text) {
+        return text.length() < MINIMUM_RELIABLE_TEXT_LENGTH;
+    }
+
+    }
