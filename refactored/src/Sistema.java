@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Sistema {
 
-    private static NewsCatalog newsCatalog = new NewsCatalog();
-    private static NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
+    private static final NewsCatalog newsCatalog = new NewsCatalog();
+    private static final NewsAnalyzer newsAnalyzer = new NewsAnalyzer();
 
     // função que faz tudo
     public static void addNews(String newsText, String newsClassification) {
@@ -60,26 +60,46 @@ public class Sistema {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("1 - adicionar manual");
-            System.out.println("2 - adicionar automatico");
-            System.out.println("3 - listar");
-            System.out.println("4 - sair");
+            showMenuOptions();
 
-            String op = sc.nextLine();
+            String option = sc.nextLine();
 
-            if (op.equals("1")) {
-                addManual(sc);
-            } else if (op.equals("2")) {
-                addAuto(sc);
-            } else if (op.equals("3")) {
-                listNews();
-            } else if (op.equals("4")) {
+            if (!handleMenuOption(option, sc)) {
                 break;
-            } else {
-                System.out.println("errado");
             }
         }
 
         sc.close();
+    }
+
+    private static void showMenuOptions() {
+        System.out.println("1 - adicionar manual");
+        System.out.println("2 - adicionar automatico");
+        System.out.println("3 - listar");
+        System.out.println("4 - sair");
+    }
+
+    private static boolean handleMenuOption(String option, Scanner sc) {
+        if (option.equals("1")) {
+            addManual(sc);
+            return true;
+        }
+
+        if (option.equals("2")) {
+            addAuto(sc);
+            return true;
+        }
+
+        if (option.equals("3")) {
+            listNews();
+            return true;
+        }
+
+        if (option.equals("4")) {
+            return false;
+        }
+
+        System.out.println("Opcao invalida.");
+        return true;
     }
 }
